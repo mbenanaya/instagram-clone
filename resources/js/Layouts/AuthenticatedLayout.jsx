@@ -1,125 +1,201 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+import { Link } from '@inertiajs/inertia-react';
+import { Dropdown } from 'flowbite-react'
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
+import MenuItem from '@/Components/MenuItem';
+import CreatePostOverlay from '@/Components/CreatePostOverlay';
+import ThemeSwitcher from '@/Components/ThemeSwitcher'
+import { ThemeContext } from '@/Components/ThemeProvider';
 
-export default function Authenticated({ user, header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
+import SendRoundedIcon from '@mui/icons-material/SendRounded';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import PersonAddRoundedIcon from '@mui/icons-material/PersonAddRounded';
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
+import { SlSettings } from 'react-icons/sl'
+
+
+export default function Authenticated({ user, children }) {
+    
+    const { theme, handleThemeChange } = useContext(ThemeContext);
+    const [showCreatePost, setShowCreatePost] = useState(false)
+    const [showMenu, setShowMenu] = useState(false)
+    const menuRef = useRef(null)
+
+    const toggleMenu = () => {
+        setShowMenu(prev => !prev)
+    }
+
+    const menuClasses = `w-full h-full mt-2 py-2 w-48 bg-white dark:bg-gray9 text-gray9 dark:text-gray1 rounded-md shadow-xl z-10 ${
+        showMenu ? '' : 'hidden'
+    }`;
+
+    useEffect(() => {
+        const handleClickOutsideMenu = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setShowMenu(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutsideMenu);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideMenu);
+        }
+    }, [menuRef]);
 
     return (
-        <div className="min-h-screen bg-gray-100">
-            <nav className="bg-white border-b border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            <div className="shrink-0 flex items-center">
-                                <Link href="/">
-                                    <ApplicationLogo className="block h-9 w-auto fill-current text-gray-800" />
-                                </Link>
-                            </div>
+        <div className="w-full h-screen bg-white dark:bg-gray9 selection:bg-purple-500 selection:text-white">
 
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
+            <div
+                id="SideNav"
+                className="fixed h-full bg-white dark:bg-gray9 text-gray9 dark:text-gray1 xl:w-[280px] w-[80px] md:block hidden border-r border-r-gray3"
+            >
+                <Link href="/dashboard">
+                    {theme === 'light' ? (
+                        <>
+                            <img
+                                className="xl:hidden block w-[25px] mt-10 ml-[28px] mb-10 cursor-pointer"
+                                src="images/logo_small_dark.png"
+                            />
+                            <img
+                                className="xl:block hidden w-[120px] mt-10 ml-6 mb-10 cursor-pointer"
+                                src="images/insta_logo_dark.png"
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <img
+                                className="xl:hidden block w-[25px] mt-10 ml-[28px] mb-10 cursor-pointer"
+                                src="images/logo_small_light.png"
+                            />
+                            <img
+                                className="xl:block hidden w-[120px] mt-10 ml-6 mb-10 cursor-pointer"
+                                src="images/insta_logo_light.png"
+                            />
+                        </>
+                    )
 
-                        <div className="hidden sm:flex sm:items-center sm:ml-6">
-                            <div className="ml-3 relative">
-                                <Dropdown>
-                                    <Dropdown.Trigger>
-                                        <span className="inline-flex rounded-md">
-                                            <button
-                                                type="button"
-                                                className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
-                                            >
-                                                {user.name}
+                    }
+                </Link>
 
-                                                <svg
-                                                    className="ml-2 -mr-0.5 h-4 w-4"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    viewBox="0 0 20 20"
-                                                    fill="currentColor"
-                                                >
-                                                    <path
-                                                        fillRule="evenodd"
-                                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                        clipRule="evenodd"
-                                                    />
-                                                </svg>
-                                            </button>
-                                        </span>
-                                    </Dropdown.Trigger>
+                <div className="px-3 flex flex-col justify-center bg-white dark:bg-gray9 text-gray9 dark:text-gray1">
+                    <Link href="/dashboard">
+                        <MenuItem user={user} iconString="Home" className="mb-4" />
+                    </Link>
+                    <MenuItem user={user} iconString="Search" className="mb-4" />
+                    <MenuItem user={user} iconString="Explore" className="mb-4" />
+                    <MenuItem user={user} iconString="Messages" className="mb-4" />
+                    <MenuItem user={user} iconString="Notifications" className="mb-4" />
+                    <button
+                        onClick={() => {
+                            setShowCreatePost(true);
+                        }}
+                    >
+                    <MenuItem
+                        iconString="Create"
+                        className="mb-4"
+                    />
+                    </button>
+                    <Link
+                        href={route('profile.index')}
+                    >
+                        <MenuItem user={user} iconString="Profile" className="mb-4" />
+                    </Link>
 
-                                    <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
-                                        <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
-                                        </Dropdown.Link>
-                                    </Dropdown.Content>
-                                </Dropdown>
-                            </div>
-                        </div>
+                    <button onClick={toggleMenu} className="mt-0 mb-6 md:mt-6 lg:mt-2 xl:mt-16">
+                        <MenuItem iconString="More" className="mb-4" />
+                    </button>
 
-                        <div className="-mr-2 flex items-center sm:hidden">
-                            <button
-                                onClick={() => setShowingNavigationDropdown((previousState) => !previousState)}
-                                className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
-                            >
-                                <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                    <path
-                                        className={!showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                    <path
-                                        className={showingNavigationDropdown ? 'inline-flex' : 'hidden'}
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
                 </div>
 
-                <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
-                    <div className="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <div className="pt-4 pb-1 border-t border-gray-200">
-                        <div className="px-4">
-                            <div className="font-medium text-base text-gray-800">{user.name}</div>
-                            <div className="font-medium text-sm text-gray-500">{user.email}</div>
-                        </div>
-
-                        <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route('profile.edit')}>Profile</ResponsiveNavLink>
-                            <ResponsiveNavLink method="post" href={route('logout')} as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            {header && (
-                <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
-                </header>
+                {showMenu && (
+                <ul
+                    ref={menuRef}
+                    className={`absolute bottom-[140px] left-[65px] xl:bottom-[70px] xl:left-[20px] py-2 mt-2 w-56 bg-white dark:bg-gray8 text-gray9 dark:text-gray1 rounded-md shadow-xl z-10 ${
+                    showMenu ? '' : 'hidden'
+                    }`}
+                >
+                    <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
+                        <span className="mr-2"><HomeRoundedIcon /></span>
+                        Settings
+                    </li>
+                    <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
+                        <span className="mr-2"><HomeRoundedIcon /></span>
+                        Saved
+                    </li>
+                    <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
+                        <span className="mr-2"><ThemeSwitcher onThemeChange={handleThemeChange} /></span>
+                        Switch appearance
+                    </li>
+                    <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
+                        <span className="mr-2"><HomeRoundedIcon /></span>
+                        <Link href={route('logout')} method="post" as="button">Log out</Link>
+                    </li>
+                </ul>
             )}
+                {showCreatePost && (
+                    <CreatePostOverlay onClose={() => setShowCreatePost(false)} user={user} />
+                )}
+            </div>
 
-            <main>{children}</main>
+            <div className="flex justify-center lg:justify-end h-screen w-[100%-80px] xl:w-[100%-280px] lg:pr[5rem] bg-white dark:bg-gray9 text-gray9 dark:text-gray1">
+                <main className="w-[92%] xl:w-[79%]">{children}</main>
+            </div>
+
+          <div
+            id="BottomNav"
+            className="fixed z-30 bottom-0 w-full md:hidden flex items-center justify-around bg-white dark:bg-gray9 text-gray9 dark:text-gray1 border-t py-2 border-t-gray3 dark:border-t-gray5"
+          >
+            <Link href="/dashboard">
+              <HomeRoundedIcon
+                fill="#000000"
+                size={40}
+                className="cursor-pointer"
+              />
+            </Link>
+            <ExploreRoundedIcon
+              fill="#000000"
+              size={40}
+              className="cursor-pointer"
+            />
+            <AccountCircleRoundedIcon
+              fill="#000000"
+              size={40}
+              className="cursor-pointer"
+            />
+            <AddRoundedIcon
+                onClick={() => {
+                    setShowCreatePost(true);
+                }}
+                fill="#000000"
+                size={40}
+                className="cursor-pointer"
+            />
+            <SendRoundedIcon
+              fill="#000000"
+              size={40}
+              className="cursor-pointer"
+            />
+            <Link
+              href={route('profile.index')}
+            >
+              <img
+                className="rounded-full w-[30px] cursor-pointer"
+                src={user.file}
+              />
+            </Link>
+          </div>
+
+          {showCreatePost && (
+            <CreatePostOverlay onClose={() => setShowCreatePost(false)} user={user} />
+          )}
         </div>
     );
 }

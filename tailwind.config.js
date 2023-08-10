@@ -9,7 +9,7 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.jsx',
         'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
-        './node_modules/tw-elements/dist/js/**/*.js',
+        // './node_modules/tw-elements/dist/js/**/*.js',
         'node_modules/preline/dist/*.js',
     ],
 
@@ -39,7 +39,7 @@ export default {
     plugins: [
         forms,
         require('flowbite/plugin'),
-        require("tw-elements/dist/plugin.cjs"),
+        // require("tw-elements/dist/plugin.cjs"),
         require('preline/plugin'),
     ],
 };
