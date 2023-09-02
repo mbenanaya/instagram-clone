@@ -1,18 +1,23 @@
+import { useState } from 'react'
 import { Head, Link, useForm } from '@inertiajs/react'
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import TopNavUser from '@/Components/TopNavUser'
+import CreatePostOverlay from '@/Components/CreatePostOverlay'
 import ContentOverlay from '@/Components/ContentOverlay'
+import { PostsIcon } from '@/Components/icons/PostsIcon'
+import { ReelsIcon } from '@/Components/icons/ReelsIcon'
+import { AccountIcon } from '@/Components/icons/AccountIcon'
 import { IoMdSettings } from 'react-icons/io'
-import { IoMdGrid, IoMdVideocam, IoMdBookmark, IoMdPerson } from 'react-icons/io'
-import { BsGrid3X3 } from 'react-icons/bs'
+import { IoMdBookmark } from 'react-icons/io'
 import AccountBoxRoundedIcon from '@mui/icons-material/AccountBoxRounded'
-// import ContentOverlay from '@/Components/ContentOverlay'
-
-import { Tabs } from 'flowbite-react';
 import { HiAdjustments, HiClipboardList, HiUserCircle } from 'react-icons/hi';
 import { MdDashboard } from 'react-icons/md'
+import { BiLinkAlt } from 'react-icons/bi'
+import { PiCamera } from 'react-icons/pi'
 
 export default function Index({ auth, postsByUser }) {
+
+	const [showCreatePost, setShowCreatePost] = useState(false)
 
 	const { data, setData, post, errors, processing, recentlySuccessful } = useForm({
         file: null,
@@ -42,7 +47,7 @@ export default function Index({ auth, postsByUser }) {
 				<TopNavUser user={auth.user} />
 
 				<div className="pt-2 md:pt-6"></div>
-				<div className="mt-24 md:mt-0 lg:ml-0 md:ml-[80px] pl-32 md:pl-20 px-4 w-full">
+				<div className="mt-24 md:mt-0 lg:ml-0 md:ml-[80px] pl-4 md:pl-20 px-4 w-full">
 					<div className="flex items-center md:justify-between space-x-12">
 						<label htmlFor="fileUser">
 							<img
@@ -97,6 +102,25 @@ export default function Index({ auth, postsByUser }) {
 										{ auth.user.name }
 									</div>
 								</div>
+								{auth.user.bio && (
+									<div className="hidden md:block">
+										<div className="mt-1">
+											{ auth.user.bio }
+										</div>
+									</div>
+								)}
+
+								{auth.user.website && (
+									<div className="hidden md:block">
+										<div className="mt-1 flex justify-start items-center">
+											<span className="mr-2"> <BiLinkAlt /> </span>
+											<a href={auth.user.website} target="_blank" className="font-semibold text-blue-500">
+												{auth.user.website}
+											</a>
+										</div>
+									</div>
+								)}
+								
 							</div>
 						</div>
 					</div>
@@ -105,6 +129,24 @@ export default function Index({ auth, postsByUser }) {
 							{ auth.user.name }
 						</div>
 					</div>
+
+					{auth.user.bio && (
+						<div className="flex md:hidden justify-start">
+							<div className="mt-1">
+								{auth.user.bio}
+							</div>
+						</div>
+					)}
+
+					{auth.user.website && (
+						<div className="mt-1 flex justify-start items-center md:hidden">
+							<span className="mr-2"> <BiLinkAlt /> </span>
+							<a href={auth.user.website} className="font-semibold text-blue-500">
+								{auth.user.website}
+							</a>
+						</div>
+					)}
+					
 				</div>
 				<div className="md:hidden">
 					<div className="w-full flex items-center justify-around border-t border-t-gray-300 mt-8">
@@ -122,23 +164,87 @@ export default function Index({ auth, postsByUser }) {
 						</div>
 					</div>
 
-					<div className="w-full flex items-center justify-between border-t border-t-gray-300">
-						<div className="p-3 w-1/4 flex justify-center border-t border-t-gray-900">
-							<BsGrid3X3 height="28px" width="28px" color="#0095F6" className="cursor-pointer" />
+					<div className="w-full flex items-center justify-center">
+						<div className="w-full flex items-start justify-between  border-t border-t-gray-300">
+							<div className="p-3 pt-0 pl-0 w-1/3 flex justify-center items-center ">
+								<button
+									type="button"
+									className="w-full hs-tab-active:font-bold hs-tab-active:border-gray9 dark:hs-tab-active:border-gray1 hs-tab-active:text-purple-500 p-[17px] w-1/4 flex justify-center items-center py-4 px-1 inline-flex items-center gap-2 border-t-[2px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:text-purple-500 active"
+										id="p-tab"
+										data-hs-tab="#ps"
+										aria-controls="ps"
+										role="tab"
+								>
+									<PostsIcon color="rgb(0, 149, 246)" height="28px" width="28px" className="cursor-pointer" />
+								</button>
+							</div>
+							<div className="p-3 pt-0 w-1/3 flex justify-center items-center ">
+								<button
+									type="button"
+									className="w-full hs-tab-active:font-bold hs-tab-active:border-gray9 dark:hs-tab-active:border-gray1 hs-tab-active:text-purple-500 p-[17px] w-1/4 flex justify-center items-center py-4 px-1 inline-flex items-center gap-2 border-t-[2px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:text-purple-500"
+									id="rls-tab"
+									data-hs-tab="#rls"
+									aria-controls="rls"
+									role="tab"
+								>
+									<ReelsIcon Color="rgb(115, 115, 115)" height="28px" width="28px" className="cursor-pointer" />
+								</button>
+							</div>
+
+							<div className="p-3 pt-0 pr-0 w-1/3 flex justify-center items-center ">
+								<button
+									type="button"
+									className="w-full hs-tab-active:font-bold hs-tab-active:border-gray9 dark:hs-tab-active:border-gray1 hs-tab-active:text-purple-500 p-[17px] w-1/4 flex justify-center items-center py-4 px-1 inline-flex items-center gap-2 border-t-[2px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:text-purple-500"
+									id="tgd-tab"
+									data-hs-tab="#tgd"
+									aria-controls="tgd"
+									role="tab"
+								>
+									<AccountIcon Color="rgb(115, 115, 115)" height="28px" width="28px" className="cursor-pointer" />
+								</button>
+							</div>
+
 						</div>
-						<div className="p-3 w-1/4 flex justify-center">
-							<BsGrid3X3 height="28px" width="28px" color="#8E8E8E" className="cursor-pointer" />
+					</div>
+
+					<div className="mt-3 md:hidden">
+						<div id="ps" role="tabpanel" aria-labelledby="p-tab">
+							<div className="grid md:gap-4 gap-1 grid-cols-3 relative">
+								{postsByUser.data.map((postByUser) => (
+								<div key={postByUser.id}>
+									<ContentOverlay
+										postByUser={postByUser}
+										onSelectedPost={(data) => console.log(data)}
+									/>
+								</div>
+								))}
+							</div>
 						</div>
-						<div className="p-3 w-1/4 flex justify-center">
-							<BsGrid3X3 height="28px" width="28px" color="#8E8E8E" className="cursor-pointer" />
+
+						<div id="rls" className="hidden" role="tabpanel" aria-labelledby="rls-tab">
+							<div className="grid md:gap-4 gap-1 grid-cols-3 relative">
+								{postsByUser.data.map((postByUser) => (
+								<div key={postByUser.id}>
+									<ContentOverlay
+										postByUser={postByUser}
+										onSelectedPost={(data) => console.log(data)}
+									/>
+								</div>
+								))}
+							</div>
 						</div>
-						<div className="p-3 w-1/4 flex justify-center">
-							<AccountBoxRoundedIcon height="28px" width="28px" color="#8E8E8E" className="cursor-pointer" />
+
+						<div id="saved" className="hidden" role="tabpanel" aria-labelledby="saved-tab">
+							SAVED
+						</div>
+
+						<div id="tgd" className="hidden" role="tabpanel" aria-labelledby="tgd-tab">
+							TAGGED
 						</div>
 					</div>
 				</div>
 
-				<div className="md:pr-1.5 md:pl-[90px] lg:px-6 xl:px-8">
+				<div className="pb-12 bg-white dark:bg-gray9 text-gray9 dark:text-gray1 md:pr-1.5 md:pl-[90px] lg:px-6 xl:px-8">
 					<div className="md:block mt-10 hidden border-t border-t-gray-300">
 						<div className="flex items-center justify-between max-w-[600px] mx-auto font-extrabold text-gray-400 text-[15px]">
 							<button
@@ -149,7 +255,7 @@ export default function Index({ auth, postsByUser }) {
 									aria-controls="posts"
 									role="tab"
 							>
-								<IoMdGrid size="18px" className="cursor-pointer" />
+								<PostsIcon color="#8E8E8E" size="18px" className="cursor-pointer" />
 								<span className="ml-2 -mb-[1px]">POSTS</span>
 							</button>
 							<button
@@ -160,7 +266,7 @@ export default function Index({ auth, postsByUser }) {
 								aria-controls="reels"
 								role="tab"
 							>
-								<IoMdVideocam size="18px" color="#8E8E8E" className="cursor-pointer" />
+								<ReelsIcon Color="rgb(115, 115, 115)" size="18px" className="cursor-pointer" />
 								<span className="ml-2 -mb-[1px]">REELS</span>
 							</button>
 							<button
@@ -182,50 +288,109 @@ export default function Index({ auth, postsByUser }) {
 								aria-controls="tagged"
 								role="tab"
 							>
-								<IoMdPerson size="18px" color="#8E8E8E" className="cursor-pointer" />
+								<AccountIcon Color="rgb(115, 115, 115)" size="18px" className="cursor-pointer" />
 								<span className="ml-2 -mb-[1px]">TAGGED</span>
 							</button>
 							
 						</div>
 					</div>
 
-					<div className="mt-3">
+					<div className="mt-3 hidden md:block">
 						<div id="posts" role="tabpanel" aria-labelledby="posts-tab">
-							<div className="grid md:gap-4 gap-1 grid-cols-3 relative">
-								{postsByUser.data.map((postByUser) => (
-								<div key={postByUser.id}>
-									<ContentOverlay
-										postByUser={postByUser}
-										onSelectedPost={(data) => console.log(data)}
-									/>
-								</div>
-								))}
-							</div>
+							{postsByUser.data.length === 0 ? (
+	                            <div className="flex flex-col justify-center items-center pt-8">
+	                                <span className="flex justify-center items-center w-[60px] h-[60px] rounded-full border-black dark:border-white border-2">
+                                        <PiCamera size="36" />
+                                    </span>
+	                                <h1 className="text-3xl font-extrabold my-4">Share Photos</h1>
+	                                <p className="text-md mb-4">When you share photos, they will appear on your profile.</p>
+	                                <button
+	                                	className="font-bold text-blue-500"
+	                                	onClick={() => {
+				                            setShowCreatePost(true);
+				                        }}
+	                                >
+	                                	Share your first photo 
+	                                </button>
+	                                
+	                                {showCreatePost && (
+					                    <CreatePostOverlay onClose={() => setShowCreatePost(false)} user={auth.user} />
+					                )}
+
+	                            </div>
+		                    ) : (
+		                        <div className="grid md:gap-4 gap-1 grid-cols-3 relative">
+		                           {postsByUser.data.map((postByUser) => (
+										<div key={postByUser.id}>
+											<ContentOverlay
+												postByUser={postByUser}
+												onSelectedPost={(data) => console.log(data)}
+											/>
+										</div>
+									))}
+		                        </div>
+		                    )}
 						</div>
 
 						<div id="reels" className="hidden" role="tabpanel" aria-labelledby="reels-tab">
-							<div className="grid md:gap-4 gap-1 grid-cols-3 relative">
-								{postsByUser.data.map((postByUser) => (
-								<div key={postByUser.id}>
-									<ContentOverlay
-										postByUser={postByUser}
-										onSelectedPost={(data) => console.log(data)}
-									/>
-								</div>
-								))}
-							</div>
+							{postsByUser.data.length === 0 ? (
+	                            <div className="flex flex-col justify-center items-center pt-8">
+	                                <span className="flex justify-center items-center w-[60px] h-[60px] rounded-full border-black dark:border-white border-2">
+                                        <PiCamera size="36" />
+                                    </span>
+	                                <h1 className="text-3xl font-extrabold my-4">Share Photos</h1>
+	                                <p className="text-md mb-4">When you share photos, they will appear on your profile.</p>
+	                                <p className="font-bold text-blue-500 cursor-pointer">Share your first photo</p>
+	                            </div>
+		                    ) : (
+		                        <div className="grid md:gap-4 gap-1 grid-cols-3 relative">
+		                           {postsByUser.data.map((postByUser) => (
+										<div key={postByUser.id}>
+											<ContentOverlay
+												postByUser={postByUser}
+												onSelectedPost={(data) => console.log(data)}
+											/>
+										</div>
+									))}
+		                        </div>
+		                    )}
 						</div>
 
 						<div id="saved" className="hidden" role="tabpanel" aria-labelledby="saved-tab">
-							SAVED
+							{postsByUser.data.length === 0 ? (
+	                            <div className="flex flex-col justify-center items-center pt-8">
+	                                <span className="flex justify-center items-center w-[60px] h-[60px] rounded-full border-black dark:border-white border-2">
+                                        <PiCamera size="36" />
+                                    </span>
+	                                <h1 className="text-3xl font-extrabold my-4">Share Photos</h1>
+	                                <p className="text-md mb-4">When you share photos, they will appear on your profile.</p>
+	                                <p className="font-bold text-blue-500 cursor-pointer">Share your first photo</p>
+	                            </div>
+		                    ) : (
+		                        <div className="grid md:gap-4 gap-1 grid-cols-3 relative">
+		                           {postsByUser.data.map((postByUser) => (
+										<div key={postByUser.id}>
+											<ContentOverlay
+												postByUser={postByUser}
+												onSelectedPost={(data) => console.log(data)}
+											/>
+										</div>
+									))}
+		                        </div>
+		                    )}
 						</div>
 
 						<div id="tagged" className="hidden" role="tabpanel" aria-labelledby="tagged-tab">
-							TAGGED
+							<div className="flex flex-col justify-center items-center pt-8">
+								<span className="flex justify-center items-center w-[60px] h-[60px] rounded-full border-black dark:border-white border-2">
+                                        <PiCamera size="36" />
+                                    </span>
+								<h1 className="text-3xl font-extrabold my-4">Share Photos</h1>
+								<p className="text-md mb-4">When you share photos, they will appear on your profile.</p>
+								<p className="font-bold text-blue-500 cursor-pointer">Share your first photo</p>
+							</div>
 						</div>
 					</div>
-
-					<div className="pb-20"></div>
 				</div>
 			</div>
 		</AuthenticatedLayout>

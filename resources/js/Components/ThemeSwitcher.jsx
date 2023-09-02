@@ -6,8 +6,8 @@ export default function ThemeSwitcher() {
     const [theme, setTheme] = useState('light');
 
     const handleThemeSwitch = () => {
-        const updatedTheme = theme === 'dark' ? 'light' : 'dark';
-        setTheme(updatedTheme);
+        const updatedTheme = theme === 'dark' ? 'light' : 'dark'
+        setTheme(updatedTheme)
     };
 
     // useEffect(() => {
@@ -25,7 +25,7 @@ export default function ThemeSwitcher() {
         } else {
             body.classList.remove('dark');
         }
-    }, [theme]);
+    }, [theme])
 
     return (
         <div>

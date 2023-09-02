@@ -1,29 +1,32 @@
-import { useState, useEffect, useRef, useContext } from 'react';
-import { Link } from '@inertiajs/inertia-react';
+import { useState, useEffect, useRef, useContext } from 'react'
+import { Link } from '@inertiajs/react'
 import { Dropdown } from 'flowbite-react'
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import MenuItem from '@/Components/MenuItem';
-import CreatePostOverlay from '@/Components/CreatePostOverlay';
+import ApplicationLogo from '@/Components/ApplicationLogo'
+import MenuItem from '@/Components/MenuItem'
+import CreatePostOverlay from '@/Components/CreatePostOverlay'
 import ThemeSwitcher from '@/Components/ThemeSwitcher'
-import { ThemeContext } from '@/Components/ThemeProvider';
-
-import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
-import SendRoundedIcon from '@mui/icons-material/SendRounded';
-import AddRoundedIcon from '@mui/icons-material/AddRounded';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import PersonAddRoundedIcon from '@mui/icons-material/PersonAddRounded';
-import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
-import { SlSettings } from 'react-icons/sl'
+import { ThemeContext } from '@/Components/ThemeProvider'
+import { SmallLogoDark } from '@/Components/icons/SmallLogoDark'
+import { SmallLogoLight } from '@/Components/icons/SmallLogoLight'
+import { LogoDark } from '@/Components/icons/LogoDark'
+import { LogoLight } from '@/Components/icons/LogoLight'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded'
+import SendRoundedIcon from '@mui/icons-material/SendRounded'
+import AddRoundedIcon from '@mui/icons-material/AddRounded'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded'
+import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded'
+import PersonAddRoundedIcon from '@mui/icons-material/PersonAddRounded'
+import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
+import { IoMdSettings, IoMdBookmark } from 'react-icons/io'
 
 
 export default function Authenticated({ user, children }) {
     
-    const { theme, handleThemeChange } = useContext(ThemeContext);
+    const { theme, handleThemeChange } = useContext(ThemeContext)
     const [showCreatePost, setShowCreatePost] = useState(false)
     const [showMenu, setShowMenu] = useState(false)
     const menuRef = useRef(null)
@@ -60,28 +63,24 @@ export default function Authenticated({ user, children }) {
                 <Link href="/dashboard">
                     {theme === 'light' ? (
                         <>
-                            <img
-                                className="xl:hidden block w-[25px] mt-10 ml-[28px] mb-10 cursor-pointer"
-                                src="images/logo_small_dark.png"
-                            />
-                            <img
-                                className="xl:block hidden w-[120px] mt-10 ml-6 mb-10 cursor-pointer"
-                                src="images/insta_logo_dark.png"
-                            />
+                            <div className="block xl:hidden w-[25px] mt-10 ml-[28px] mb-10">
+                                <SmallLogoLight className="cursor-pointer" />
+                            </div>
+                            <div className="hidden xl:block w-[25px] mt-10 ml-[28px] mb-10">
+                                <LogoLight className="cursor-pointer" />
+                            </div>
                         </>
                     ) : (
                         <>
-                            <img
-                                className="xl:hidden block w-[25px] mt-10 ml-[28px] mb-10 cursor-pointer"
-                                src="images/logo_small_light.png"
-                            />
-                            <img
-                                className="xl:block hidden w-[120px] mt-10 ml-6 mb-10 cursor-pointer"
-                                src="images/insta_logo_light.png"
-                            />
+                            
+                            <div className="block xl:hidden w-[25px] mt-10 ml-[28px] mb-10">
+                                <SmallLogoDark className="cursor-pointer" />
+                            </div>
+                            <div className="hidden xl:block w-[25px] mt-10 ml-[28px] mb-10">
+                                <LogoDark className="cursor-pointer" />
+                            </div>
                         </>
                     )
-
                     }
                 </Link>
 
@@ -116,30 +115,30 @@ export default function Authenticated({ user, children }) {
                 </div>
 
                 {showMenu && (
-                <ul
-                    ref={menuRef}
-                    className={`absolute bottom-[140px] left-[65px] xl:bottom-[70px] xl:left-[20px] py-2 mt-2 w-56 bg-white dark:bg-gray8 text-gray9 dark:text-gray1 rounded-md shadow-xl z-10 ${
-                    showMenu ? '' : 'hidden'
-                    }`}
-                >
-                    <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
-                        <span className="mr-2"><HomeRoundedIcon /></span>
-                        Settings
-                    </li>
-                    <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
-                        <span className="mr-2"><HomeRoundedIcon /></span>
-                        Saved
-                    </li>
-                    <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
-                        <span className="mr-2"><ThemeSwitcher onThemeChange={handleThemeChange} /></span>
-                        Switch appearance
-                    </li>
-                    <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
-                        <span className="mr-2"><HomeRoundedIcon /></span>
-                        <Link href={route('logout')} method="post" as="button">Log out</Link>
-                    </li>
-                </ul>
-            )}
+                    <ul
+                        ref={menuRef}
+                        className={`absolute bottom-[140px] left-[65px] xl:bottom-[70px] xl:left-[20px] py-2 mt-2 w-56 z-50 bg-white dark:bg-gray8 text-gray9 dark:text-gray1 rounded-md shadow-xl z-10 ${
+                        showMenu ? '' : 'hidden'
+                        }`}
+                    >
+                        <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
+                            <span className="mr-2"><IoMdSettings /></span>
+                            Settings
+                        </li>
+                        <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
+                            <span className="mr-2"><IoMdBookmark /></span>
+                            Saved
+                        </li>
+                        <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
+                            <span className="mr-2"><ThemeSwitcher onThemeChange={handleThemeChange} /></span>
+                            Switch appearance
+                        </li>
+                        <li className="flex items-center p-4 hover:bg-gray2 dark:hover:bg-gray7 rounded-sm cursor-pointer">
+                            <span className="mr-2"><HomeRoundedIcon /></span>
+                            <Link href={route('logout')} method="post" as="button">Log out</Link>
+                        </li>
+                    </ul>
+                )}
                 {showCreatePost && (
                     <CreatePostOverlay onClose={() => setShowCreatePost(false)} user={user} />
                 )}

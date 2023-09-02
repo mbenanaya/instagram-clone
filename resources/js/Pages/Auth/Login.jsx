@@ -54,7 +54,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <>
-            <Head title="Log in • Instagram" />
+            <Head title="Instagram" />
             <Navbar />
             <div className="h-screen flex flex-row items-start justify-evenly pt-12 mt-12 mb-0 px-2 bg-gray1 dark:bg-gray9 selection:bg-purple-500 selection:text-white md:space-x-8">
                 <div className="hidden md:block">
