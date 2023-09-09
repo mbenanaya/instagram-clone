@@ -49,8 +49,8 @@ export default function User({ user, postsByUser, following }) {
                     <div className="flex items-center md:justify-between space-x-12">
                         <label htmlFor="fileUser">
                             <img
-                                className="rounded-full object-fit md:w-[200px] w-[100px] cursor-pointer"
-                                src={user.file} 
+                                className="rounded-full object-fit md:w-[200px] w-[100px] md:h-[200px] h-[100px] cursor-pointer"
+                                src={'../'+user.file} 
                             />
                         </label>
 
@@ -84,15 +84,16 @@ export default function User({ user, postsByUser, following }) {
                                         <button className="md:block hidden py-2 px-4 rounded-lg text-[16px] font-extrabold bg-gray-100 hover:bg-gray-200 dark:text-gray9">
                                             Following 
                                         </button>
+
+                                        <Link
+                                            href={route('chat.index', {id: user.id})}
+                                            className="md:block hidden py-2 px-4 rounded-lg text-[16px] font-extrabold bg-gray-100 hover:bg-gray-200 dark:text-gray9"
+                                        >
+                                            Message
+                                        </Link>
                                     </>
                                 )}
 
-                                <Link
-                                    to="/dashboard"
-                                    className="md:block hidden py-2 px-4 rounded-lg text-[16px] font-extrabold bg-gray-100 hover:bg-gray-200 dark:text-gray9"
-                                >
-                                    Message
-                                </Link>
                                 
                                 <button
                                     onClick={ShowUnfollowOverl}

@@ -10,6 +10,7 @@ import { SmallLogoDark } from '@/Components/icons/SmallLogoDark'
 import { SmallLogoLight } from '@/Components/icons/SmallLogoLight'
 import { LogoDark } from '@/Components/icons/LogoDark'
 import { LogoLight } from '@/Components/icons/LogoLight'
+import { SendIcon } from '@/Components/icons/SendIcon'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
@@ -54,11 +55,11 @@ export default function Authenticated({ user, children }) {
     }, [menuRef]);
 
     return (
-        <div className="w-full h-screen bg-white dark:bg-gray9 selection:bg-purple-500 selection:text-white">
+        <div className="flex xl:space-x-36 h-screen bg-white dark:bg-gray9 selection:bg-purple-500 selection:text-white">
 
             <div
                 id="SideNav"
-                className="fixed h-full bg-white dark:bg-gray9 text-gray9 dark:text-gray1 xl:w-[280px] w-[80px] md:block hidden border-r border-r-gray3"
+                className="fixed h-full bg-white dark:bg-gray9 text-gray9 dark:text-gray1 w-[80px] xl:w-[240px] md:block hidden border-r border-r-gray3"
             >
                 <Link href="/dashboard">
                     {theme === 'light' ? (
@@ -90,7 +91,9 @@ export default function Authenticated({ user, children }) {
                     </Link>
                     <MenuItem user={user} iconString="Search" className="mb-4" />
                     <MenuItem user={user} iconString="Explore" className="mb-4" />
-                    <MenuItem user={user} iconString="Messages" className="mb-4" />
+                    <Link href="/messages">
+                        <MenuItem user={user} iconString="Messages" className="mb-4" />
+                    </Link>
                     <MenuItem user={user} iconString="Notifications" className="mb-4" />
                     <button
                         onClick={() => {
@@ -144,8 +147,10 @@ export default function Authenticated({ user, children }) {
                 )}
             </div>
 
-            <div className="flex justify-center lg:justify-end h-screen w-[100%-80px] xl:w-[100%-280px] lg:pr[5rem] bg-white dark:bg-gray9 text-gray9 dark:text-gray1">
-                <main className="w-[92%] xl:w-[79%]">{children}</main>
+            <div className="grow bg-white dark:bg-gray9 text-gray9 dark:text-gray1">
+                <main className="h-full md:pl-[80px] xl:pl-[96px]">
+                    {children}
+                </main>
             </div>
 
           <div

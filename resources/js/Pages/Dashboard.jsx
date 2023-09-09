@@ -148,8 +148,8 @@ export default function Dashboard({ auth, posts, nonFollowedUsers }) {
             <Head title="Instagram" />
             <TopNav />
                 {posts.data.length > 0 ? (
-                    <div className="flex justify-center w-full lg:justify-between bg-white dark:bg-gray9">
-                        <div className="mx-auto w-full w-full lg:w-8/12 lg:pl-0 md:pl-[80px] pl-0 bg-white dark:bg-gray9 text-gray9 dark:text-gray1">
+                    <div className="h-full flex justify-center bg-white dark:bg-gray9">
+                        <div className="md:mx-auto max-w-[500px] lg:ml-32 xl:mx-auto bg-white dark:bg-gray9 text-gray9 dark:text-gray1">
                             {/*<Carousel
                                 selectedItem={currentSlide}
                                 onChange={handleSlideChange}
@@ -178,7 +178,7 @@ export default function Dashboard({ auth, posts, nonFollowedUsers }) {
                             </Carousel>*/}
 
                             {posts.data.map((post) => (
-                                <div key={post.id} className="px-4 bg-white dark:bg-gray9 max-w-[600px] mx-auto mt-10">
+                                <div key={post.id} className="px-4 bg-white dark:bg-gray9 mx-auto mt-10">
                                     <div className="flex items-center justify-between py-2">
                                         <div className="flex items-center">
                                             <Link href={route('user.show', { id: post.user.id })} className="flex items-center">

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -35,6 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/people', [HomeController::class, 'people'])->name('people');
 
     Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
+
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::post('/profile', [ProfileController::class, 'updateImage'])->name('profile.updateImage');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -46,6 +48,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/follow', [FollowController::class, 'follow'])->name('follow');
     Route::post('/unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
+
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/chat/{userId}', [MessageController::class, 'chat'])->name('chat.index');
 });
 
 require __DIR__.'/auth.php';

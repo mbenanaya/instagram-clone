@@ -10,13 +10,13 @@ export default function ThemeSwitcher() {
         setTheme(updatedTheme)
     };
 
-    // useEffect(() => {
-    //     if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    //         setTheme('dark')
-    //     } else {
-    //         setTheme('light')
-    //     }
-    // }, [])
+    useEffect(() => {
+        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            setTheme('dark')
+        } else {
+            setTheme('light')
+        }
+    }, [])
 
     useEffect(() => {
         const body = document.querySelector('body');

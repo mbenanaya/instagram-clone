@@ -8,6 +8,7 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import { SendIcon } from './icons/SendIcon'
 import { ThemeContext } from './ThemeProvider';
 
 const MenuItem = ({ user, iconString }) => {
@@ -18,7 +19,7 @@ const MenuItem = ({ user, iconString }) => {
   if (iconString === 'Home') { icon = HomeRoundedIcon };
   if (iconString === 'Search') {icon = SearchRoundedIcon};
   if (iconString === 'Explore') {icon = ExploreRoundedIcon};
-  if (iconString === 'Messages') {icon = SendRoundedIcon};
+  if (iconString === 'Messages') {icon = SendIcon};
   if (iconString === 'Notifications') {icon = FavoriteBorderRoundedIcon};
   if (iconString === 'Create') {icon = AddRoundedIcon};
   if (iconString === 'Profile') {icon = AccountCircleRoundedIcon};
@@ -30,7 +31,7 @@ const MenuItem = ({ user, iconString }) => {
       <div className="flex justify-center xl:justify-start items-center">
         {iconString === 'Profile' ? (
           <img
-            className={`rounded-full ml-[2px] w-[30px] cursor-pointer ${iconString === 'Profile' ? 'mr-1' : ''}`}
+            className={`rounded-full ml-[2px] w-[30px] h-[30px] cursor-pointer ${iconString === 'Profile' ? 'mr-1' : ''}`}
             src={user.file}
           />
         ) : (
