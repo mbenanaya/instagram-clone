@@ -17,7 +17,9 @@ class UserController extends Controller
      */
     public function show(Request $request, $id)
     {
-        $user = User::find($id);
+        $user = User::withCount('followers',
+            'following'
+        )->find($id);
         $followerId = $request->user()->id;
 
         $following = Follow::where('following_id', $id)

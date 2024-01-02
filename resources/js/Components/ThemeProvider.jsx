@@ -1,13 +1,22 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const ThemeContext = createContext();
 
 function ThemeProvider({ children }) {
-    const [theme, setTheme] = useState('light');
+    const [theme, setTheme] = useState(() => {
+        const savedTheme = localStorage.getItem('theme');
+        return savedTheme || 'light';
+    });
 
     const handleThemeChange = (updatedTheme) => {
         setTheme(updatedTheme);
     };
+
+    useEffect(() => {
+        localStorage.setItem('theme', theme);
+        const body = document.querySelector('body');
+        body.classList.toggle('dark', theme === 'dark');
+    }, [theme]);
 
     return (
         <ThemeContext.Provider value={{ theme, handleThemeChange }}>
@@ -16,4 +25,4 @@ function ThemeProvider({ children }) {
     );
 }
 
-export default React.memo(ThemeProvider)
+export default React.memo(ThemeProvider);

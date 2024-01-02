@@ -31,7 +31,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
             <form onSubmit={submit} className="mt-6 space-y-6 px-8">
                 <div className="flex items-center justify-start space-x-8">
                     <img
-                        src={data.file}
+                        src={"../" + data.file}
                         alt=""
                         className="rounded-full w-[38px] h-[38px]" />
                     <div className="text-black dark:text-white flex flex-col justify-center items-start">
@@ -41,7 +41,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                             id="fileUser"
                             type="file"
                             className="hidden"
-                            // onChange={(e) => getUploadedImage(e)} 
+                            // onChange={(e) => getUploadedImage(e)}
                         />
                     </div>
                     <InputError className="mt-2" message={errors.name} />

@@ -1,44 +1,36 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import { ThemeContext } from './ThemeProvider';
 
-export default function ThemeSwitcher() {
-    const [theme, setTheme] = useState('light');
+export default function ThemeSwitcher({ string }) {
+    const { theme, handleThemeChange } = useContext(ThemeContext);
 
     const handleThemeSwitch = () => {
-        const updatedTheme = theme === 'dark' ? 'light' : 'dark'
-        setTheme(updatedTheme)
+        const updatedTheme = theme === 'dark' ? 'light' : 'dark';
+        handleThemeChange(updatedTheme);
     };
 
     useEffect(() => {
-        if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            setTheme('dark')
-        } else {
-            setTheme('light')
-        }
-    }, [])
-
-    useEffect(() => {
         const body = document.querySelector('body');
-        if (theme === 'dark') {
-            body.classList.add('dark');
-        } else {
-            body.classList.remove('dark');
-        }
-    }, [theme])
+        body.classList.toggle('dark', theme === 'dark');
+    }, [theme]);
 
     return (
         <div>
             {theme === 'light' ? (
-                <DarkModeOutlinedIcon
-                    className="text-black hover:text-gray-600 dark:text-ternary-light dark:hover:text-primary-light text-xl cursor-pointer"
-                    onClick={handleThemeSwitch}
-                />
+                <div onClick={handleThemeSwitch}>
+                    <DarkModeOutlinedIcon
+                        className="text-black text-xl cursor-pointer"
+                    />
+                    <span className="ml-2">{ string }</span>
+                </div>
             ) : (
-            <LightModeOutlinedIcon
-                    className="text-white hover:text-gray-300 text-xl cursor-pointer"
-                    onClick={handleThemeSwitch}
-                />
+                    <div onClick={handleThemeSwitch}>
+                    <LightModeOutlinedIcon className="text-white text-xl cursor-pointer"
+                    />
+                    <span className="ml-2">{ string }</span>
+                </div>
             )}
         </div>
     );

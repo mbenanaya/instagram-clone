@@ -1,17 +1,16 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
-import TopNav from '@/Components/TopNav'
-import { Head, Link, useForm } from '@inertiajs/react'
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import TopNav from "@/Components/TopNav";
+import { Head, Link, useForm } from "@inertiajs/react";
 
 export default function People({ auth, users }) {
+    const currentYear = new Date().getFullYear();
 
-	const currentYear = new Date().getFullYear()
-
-	return (
-		<AuthenticatedLayout user={auth.user} >
+    return (
+        <AuthenticatedLayout user={auth.user}>
             <Head title="People" />
             <TopNav />
             <div className="flex flex-col justify-center items-center space-y-12 pb-12">
-                <div className="flex justify-center w-full bg-white dark:bg-gray9 pt-12">
+                <div className="flex justify-center w-full bg-white dark:bg-black pt-12">
                     <div
                         id="SuggestionsSection"
                         className="flex flex-col justify-center items-center w-full sm:w-11/12 lg:w-8/12 mt-8 lg:mt-0"
@@ -25,7 +24,9 @@ export default function People({ auth, users }) {
                                 className="w-full flex items-center mb-2"
                             >
                                 <Link
-                                    href={route('user.show', { id: randUser.id })}
+                                    href={route("user.show", {
+                                        id: randUser.id,
+                                    })}
                                     className="flex-none w-14 pb-2"
                                 >
                                     <img
@@ -44,20 +45,19 @@ export default function People({ auth, users }) {
                                         Popular
                                     </div>
                                 </div>
-                                
+
                                 <button
                                     className="py-2 px-6 flex-none w-24 rounded-lg text-sm font-extrabold text-white bg-[#0095F6] hover:bg-[#2140fa]"
                                     onClick={() => {
-                                        setSelectedUserId(randUser.id)
-                                        setData('following_id', randUser.id)
-                                        follow()
+                                        setSelectedUserId(randUser.id);
+                                        setData("following_id", randUser.id);
+                                        follow();
                                     }}
                                 >
                                     Follow
                                 </button>
                             </div>
                         ))}
-
                     </div>
                 </div>
                 <div className="hidden md:block">
@@ -85,5 +85,5 @@ export default function People({ auth, users }) {
                 </div>
             </div>
         </AuthenticatedLayout>
-	)
+    );
 }

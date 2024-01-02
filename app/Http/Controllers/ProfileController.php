@@ -20,12 +20,14 @@ class ProfileController extends Controller
     public function index(Request $request): Response
     {
         $id = $request->user()->id;
+        $user = User::withCount(['followers', 'following'])->find($id);
         $posts = Post::where('user_id', $id)->orderBy('created_at', 'desc')->get();
 
         return Inertia::render('Profile/Index', [
-            'user' => $request->user(),
+            'user' => $user,
             'postsByUser' => new AllPostsCollection($posts)
         ]);
+        // dd($user);
     }
 
     /**
@@ -62,7 +64,7 @@ class ProfileController extends Controller
         $user->save();
 
         return Redirect::route('profile.index');
-    }    
+    }
 
     /**
      * Delete the user's account.

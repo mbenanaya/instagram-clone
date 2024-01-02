@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import GuestLayout from '@/Layouts/GuestLayout';
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import { ThemeContext } from "@/Components/ThemeProvider";
 import Navbar from '@/Components/Navbar';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
@@ -9,6 +10,7 @@ import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function Register() {
+    const { theme, handleThemeChange } = useContext(ThemeContext);
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         name: '',
@@ -33,11 +35,8 @@ export default function Register() {
         <>
             <Head title="Sign up • Instagram" />
             <Navbar />
-            <div className="pt-8">
+            <div>
                 <GuestLayout>
-                    <div className="py-4">
-                        <ApplicationLogo />
-                    </div>
                     <div className="text-gray6 dark:text-gray3 text-center font-extrabold text-[20px] mb-4">Sign up to see photos and videos from your friends.</div>
                     <form onSubmit={submit}>
 
@@ -56,7 +55,7 @@ export default function Register() {
                             <InputError message={errors.email} className="mt-2" />
                         </div>
 
-                        <div>
+                        <div className='mt-4'>
                             <TextInput
                                 id="name"
                                 name="name"
@@ -115,7 +114,7 @@ export default function Register() {
                             />
                             <InputError message={errors.password_confirmation} className="mt-2" />
                         </div>
-                        
+
                         <div className="mt-4">
                             <PrimaryButton disabled={processing}>
                                 Sign up

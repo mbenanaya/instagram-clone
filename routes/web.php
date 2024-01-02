@@ -3,6 +3,7 @@
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\MessageRequestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -22,10 +23,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-    ]);
+    return to_route('login');
 });
 
 Route::get('/dashboard', [HomeController::class, 'index'])
@@ -50,7 +48,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/unfollow', [FollowController::class, 'unfollow'])->name('unfollow');
 
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+
     Route::get('/chat/{userId}', [MessageController::class, 'chat'])->name('chat.index');
+    Route::post('/chat/{receiverId?}', [MessageController::class, 'store'])->name('chat.store');
+    Route::delete('/chat/{id}', [MessageController::class, 'delete'])->name('chat.delete');
+
+    Route::get('/messages/requests', [MessageRequestController::class, 'index'])->name('messages.requests');
+    Route::post('/messages/requests/{id}', [MessageRequestController::class, 'acceptRequest'])->name('acceptRequest');
+    Route::delete('/messages/requests/{id}', [MessageRequestController::class, 'delete'])->name('deleteRequest');
+    Route::get('/messages/request/{senderId}', [MessageRequestController::class, 'requestChat'])->name('request.index');
+    Route::get('/messages/requests/hidden', [MessageRequestController::class, 'hidden'])->name('requests.hidden');
+
+
 });
 
 require __DIR__.'/auth.php';

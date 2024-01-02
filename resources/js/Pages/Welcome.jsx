@@ -8,7 +8,7 @@ export default function Welcome({ auth }) {
         if (auth.user) {
             Inertia.replace(route('dashboard'));
         } else {
-            Inertia.replace(route('login'));
+            Inertia.get(route('login'));
         }
     }, [auth.user]);
 

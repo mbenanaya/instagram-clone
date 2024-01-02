@@ -33,6 +33,7 @@
         "@reduxjs/toolkit": "^1.9.5",
         "flowbite": "^1.8.1",
         "flowbite-react": "^0.5.0",
+        "framer-motion": "^10.16.16",
         "preline": "^1.9.0",
         "react-icons": "^4.10.1",
         "react-redux": "^8.1.2"

@@ -24,7 +24,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                         <nav className="flex flex-row flex-wrap md:flex-col max-w-[100%] md:space-y-2 pt-2 md:pt-0" aria-label="Tabs" role="tablist" data-hs-tabs-vertical="true">
                             <button
                                 type="button"
-                                className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 hover:border-l-gray3 active"
+                                className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 dark:hover:bg-gray9 hover:border-l-gray3 dark:hover:border-l-pc active"
                                 id="edit-profile"
                                 data-hs-tab="#edit-profile-tab"
                                 aria-controls="edit-profile-tab"
@@ -34,20 +34,20 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                             </button>
                             <button
                                 type="button"
-                                className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 hover:border-l-gray3"
+                                className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 dark:hover:bg-gray9 hover:border-l-gray3 dark:hover:border-l-pc"
                                 data-hs-tab="#change-password-tab"
                                 aria-controls="change-password-tab"
                                 role="tab"
                             >
                                 Change password
                             </button>
-                            <button type="button" className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 hover:border-l-gray3" id="email-notifs" data-hs-tab="#email-notifs-tab" aria-controls="email-notifs-tab" role="tab">
+                            <button type="button" className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 dark:hover:bg-gray9 hover:border-l-gray3 dark:hover:border-l-pc" id="email-notifs" data-hs-tab="#email-notifs-tab" aria-controls="email-notifs-tab" role="tab">
                                 Email notifications
                             </button>
-                            <button type="button" className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 hover:border-l-gray3" id="push-notifs" data-hs-tab="#push-notifs-tab" aria-controls="push-notifs" role="tab">
+                            <button type="button" className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 dark:hover:bg-gray9 hover:border-l-gray3 dark:hover:border-l-pc" id="push-notifs" data-hs-tab="#push-notifs-tab" aria-controls="push-notifs" role="tab">
                                 Push notifications
                             </button>
-                            <button type="button" className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 hover:border-l-gray3" id="delete-account" data-hs-tab="#delete-account-tab" aria-controls="delete-account-tab" role="tab">
+                            <button type="button" className="hs-tab-active:border-pc hs-tab-active:text-purple-600 hs-tab-active:font-extrabold dark:hs-tab-active:text-pc py-2 px-1 word-wrap md:px-4 inline-flex items-center gap-2 border-b-[3px] md:border-b-0 md:border-l-[3px] border-transparent text-sm whitespace-nowrap text-black dark:text-white hover:bg-gray1 dark:hover:bg-gray9 hover:border-l-gray3 dark:hover:border-l-pc" id="delete-account" data-hs-tab="#delete-account-tab" aria-controls="delete-account-tab" role="tab">
                                 Delete account
                             </button>
                         </nav>
@@ -55,7 +55,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
 
                     <div className="md:w-3/4 border-t md:border-l md:border-t-0 border-gray4 dark:border-gray3 px-6">
                         <div id="edit-profile-tab" role="tabpanel" aria-labelledby="edit-profile">
-                            <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 ">
+                            <div className="p-4 sm:p-8 bg-white dark:bg-black ">
                                 <UpdateProfileInformationForm
                                     mustVerifyEmail={mustVerifyEmail}
                                     status={status}
@@ -64,7 +64,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                             </div>
                         </div>
                         <div id="change-password-tab" className="hidden" role="tabpanel" aria-labelledby="change-password">
-                            <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                            <div className="p-4 sm:p-8 bg-white dark:bg-black shadow sm:rounded-lg">
                                 <UpdatePasswordForm className="max-w-xl" />
                             </div>
                         </div>
@@ -79,7 +79,7 @@ export default function Edit({ auth, mustVerifyEmail, status }) {
                             </p>
                         </div>
                         <div id="delete-account-tab" className="hidden" role="tabpanel" aria-labelledby="delete-account">
-                            <div className="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                            <div className="p-4 sm:p-8 bg-white dark:bg-black shadow sm:rounded-lg">
                                 <DeleteUserForm className="max-w-xl" />
                             </div>
                         </div>
